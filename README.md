@@ -14,7 +14,7 @@
 
 ## 品牌視覺
 
-網站採高貴星空宇宙主題：午夜藍黑背景、低對比星點與星雲、香檳金品牌重點；各店家分類使用低飽和專屬輔色。地圖採簡約深色灰階樣式與分類星點，保留 OpenStreetMap 署名。設計規則見 [`docs/design-system.md`](docs/design-system.md)。
+網站採高貴星空宇宙主題：午夜藍黑背景、低對比星點與星雲、香檳金品牌重點；各店家分類使用低飽和專屬輔色。地圖採白色簡約底圖與分類星點，保留 OpenStreetMap 署名。設計規則見 [`docs/design-system.md`](docs/design-system.md)。
 
 ## 本機預覽
 
