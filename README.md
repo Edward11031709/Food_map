@@ -6,11 +6,11 @@
 
 - 根目錄 index.html：單頁式前端，包含店家搜尋、分類篩選、店家詳情及清單／地圖切換。
 - 地圖：Leaflet + OpenStreetMap，只有已發布且具有有效座標的店家會顯示 marker。
-- 資料庫：supabase/migrations/20261116000100_create_food_guide_core.sql 定義店家、營業時間、菜單、來源追蹤與蒐集任務資料表及 RLS。
+- 資料庫：`supabase/migrations/20261116151354_create_food_guide_core.sql` 定義六張核心資料表、關聯、索引與 RLS；`20261116151723_harden_public_read_access.sql` 明確限制公開角色唯讀並封鎖內部蒐集紀錄。
 - 文件：docs/data-dictionary.md 與 docs/map.md。
 - 正式 AI 開發規範：AGENTS.md；agent.md 是相容入口。
 
-目前不放入虛構店家或測試店家。資料庫尚未確認套用 migration，前端 publishable key 尚未設定，因此網站首次載入會顯示設定提示及空狀態。
+目前不放入虛構店家或測試店家。Food_map Supabase 已建立六張核心資料表，完成 RLS 與公開唯讀權限設定；前端已設定 publishable key 並連線。資料庫目前 0 筆店家，因此網站會顯示正常空狀態，而非虛構資料。
 
 ## 本機預覽
 
@@ -22,15 +22,15 @@ python -m http.server 8000
 
 然後開啟 http://localhost:8000。
 
-## Supabase 啟用步驟
+## Supabase 連線與權限
 
-1. 先檢查 Food_map Supabase 專案現有 schema 與 migration 歷史。
-2. 在 Supabase SQL Editor 套用 supabase/migrations/20261116000100_create_food_guide_core.sql（或透過已連線的 Supabase CLI 流程套用）。
-3. 執行後確認 public tables、RLS、GRANT、policies 與 Security Advisor。
-4. 從 Supabase Project Settings → API Keys 取得 publishable key（sb_publishable_...），填入 index.html 的 CFG.key。
-5. 絕不可把 sb_secret_...、service_role 或資料庫密碼放到 index.html、GitHub Repo 或任何前端資產。
-
-匿名使用者僅能讀取已發布資料；不可從前端寫入正式店家資料。
+- 已連線至 Food_map 專案；核心 migration 與唯讀權限強化 migration 均已套用。版本號及 SQL 分別保存在 `supabase/migrations/`。
+- 前端 `index.html` 的 `CFG.url` 與 `CFG.key` 已設定為專案 URL 和 publishable key（`sb_publishable_...`）。
+- `anon` 與 `authenticated` 對 `places`、`place_hours`、`menu_items`、`sources`、`place_sources` 只有 SELECT 權限；RLS 僅允許已發布店家及其相關資料可見。
+- `ingestion_runs` 不授予公開角色任何表權限，且有拒絕政策。
+- Security Advisor 已檢查，沒有安全警示。資料目前 0 筆店家，不要自行新增虛構資料。
+- 新增 migration 前先檢查 Supabase 遠端 migration history，migration 檔名時間戳需與遠端版本一致。
+- 絕不可把 `sb_secret_...`、service_role 或資料庫密碼放到 `index.html`、GitHub Repo 或任何前端資產。
 
 ## GitHub Pages
 
