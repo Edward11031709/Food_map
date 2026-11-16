@@ -23,6 +23,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Validate inline JavaScript
+        run: |
+          python -c "import pathlib,re; s=pathlib.Path('index.html').read_text(); m=re.search(r'<script>\\s*(.*?)\\s*</script>', s, re.S); assert m, 'inline app script not found'; pathlib.Path('/tmp/food-guide-inline.js').write_text(m.group(1))"
+          node --check /tmp/food-guide-inline.js
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload site
