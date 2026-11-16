@@ -10,7 +10,7 @@
 - 文件：`docs/data-dictionary.md`、`docs/map.md`、`docs/design-system.md`（星空視覺設計系統）與 `docs/mrt-coverage.md`（捷運站蒐集規範）。
 - 正式 AI 開發規範：AGENTS.md；agent.md 是相容入口。
 
-目前不放入虛構店家或測試店家。Food_map Supabase 已建立六張核心資料表，完成 RLS 與公開唯讀權限設定；前端已設定 publishable key，並通過資料庫層級的匿名 SELECT／關聯查詢測試。資料庫目前已有台北101/世貿站的 19 家候選店家；16 家部分查證、3 家待確認。未確認營業時間、價格及座標留空，不以假資料補齊。
+目前不放入虛構店家或測試店家。Food_map Supabase 已建立六張核心資料表及兩張捷運關聯表，完成 RLS 與公開唯讀權限設定；前端已設定 publishable key，並通過資料庫層級的匿名 SELECT／關聯查詢測試。資料庫目前已有台北101/世貿站的 19 家候選店家；15 家部分查證、4 家待確認。未確認營業時間、價格及座標留空，不以假資料補齊。
 
 ## 品牌視覺
 
