@@ -322,6 +322,7 @@ Supabase 是正式店家資料的主要資料來源（source of truth）。網�
 - 若採用建置時匯出 JSON，匯出內容只能包含允許公開的欄位，不可包含來源內部備註、管理帳號資訊或任何秘密。
 - 不得為了方便而在前端放入高權限 key，也不可用公開資料表當成管理寫入 API。
 - 部署前確認 GitHub Pages 的來源分支／資料夾或 GitHub Actions workflow 設定；若 Repo 尚未啟用 Pages，回報需要設定，不要宣稱已部署。
+- 同一個 Repo 只能維持一條自動 GitHub Pages 部署路徑；若 Pages 內建動態部署已隨 main 推送，專案自訂 deploy-pages workflow 應僅手動觸發，避免部署鎖競爭。切換 Pages Build and deployment 來源時，先檢查 Actions run 再調整觸發方式。
 - 如新增 GitHub Actions，使用最小權限 `permissions`，固定必要依賴版本，並僅透過 Repository Secrets 傳入秘密。
 
 
