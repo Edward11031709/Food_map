@@ -33,7 +33,7 @@
 <script>
 (function(){
 "use strict";
-const CFG={url:"https://ummatvzyffqjhdhpnuar.supabase.co",key:"",tile:"https://tile.openstreetmap.org/{z}/{x}/{y}.png",center:[25.0375,121.5637],zoom:12};
+const CFG={url:"https://ummatvzyffqjhdhpnuar.supabase.co",key:"sb_publishable_Oqh8o1txNXYbxmq0-KfNFQ_RNZN1sSe",tile:"https://tile.openstreetmap.org/{z}/{x}/{y}.png",center:[25.0375,121.5637],zoom:12};
 const $=s=>document.querySelector(s),S={places:[],filtered:[],map:null,layer:null,filters:{q:"",type:"",meal:"",cuisine:"",diet:"",dining:"",price:"",city:""}};
 const labels={type:{cafe:"咖啡廳",breakfast:"早餐店",brunch:"早午餐",restaurant:"餐廳",bakery:"麵包店",dessert:"甜點店",drink_shop:"飲料店"},meal:{breakfast:"早餐",brunch:"早午餐",lunch:"午餐",afternoon_tea:"下午茶",dinner:"晚餐",supper:"宵夜"},cuisine:{taiwanese:"台式",japanese:"日式",korean:"韓式",chinese:"中式",italian:"義式",thai:"泰式"},diet:{vegetarian:"素食選項",ovo_lacto_vegetarian:"蛋奶素",vegan:"全素／純素",halal:"清真選項"}};
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
