@@ -495,11 +495,11 @@ Supabase 是正式店家資料的主要資料來源（source of truth）。網�
 
 目前第一版採用**無建置步驟的單頁網站**：根目錄 index.html 同時包含 HTML、CSS 與前端 JavaScript，外部依賴透過 CDN 載入 Leaflet 1.9.4 及 Supabase JavaScript v2。除非未來需要明確的模組化或建置流程，不要無故拆分或引入大型框架；若拆分資產，必須同步更新 README、目錄規則及本節。
 
-- Supabase Project URL 已設定於 index.html 的 CFG.url；CFG.key 必須由專案管理者填入 publishable key（sb_publishable_...），初始空值是刻意保留。任何 secret/service_role key 不得放入前端。
+- Supabase Project URL 與 publishable key 已設定於 index.html 的 CFG.url / CFG.key；CFG.key 使用 `sb_publishable_...` 公開金鑰。此金鑰可出現在瀏覽器端；任何 `sb_secret_...`、service_role key 或資料庫密碼都不得放入前端或 Repo。
 - 前端以 RLS 保護的公開讀取查詢 places，並載入 place_hours、menu_items 及 place_sources / sources。僅呈現 is_published=true 的資料。
-- 首版沒有虛構 demo 店家。無 key、空資料及資料讀取失敗都必須呈現清楚提示。
+- 首版沒有虛構 demo 店家。空資料及資料讀取失敗都必須呈現清楚提示；前端連線狀態成功時，即使目前 0 家店，也應正常顯示空狀態。
 - Leaflet 地圖使用 OSM standard raster tiles；marker 僅取自已發布店家有效座標，且清單與地圖套用相同篩選結果。MVP 不做地址 geocoding。
-- 初版資料庫 migration：supabase/migrations/20261116000100_create_food_guide_core.sql。此 migration 尚未因為檔案存在而視為已套用；只有 Supabase migration / schema 驗證成功後才能標示完成。
+- 資料庫 migrations：`20261116151354_create_food_guide_core.sql`（核心六表、RLS 與公開 SELECT）及 `20261116151723_harden_public_read_access.sql`（撤銷 anon/authenticated 寫入權、封鎖 ingestion_runs、補足來源外鍵索引）。兩者已套用至 Food_map 專案，版本號須與 Supabase migration history 保持一致；新增 migration 應由 Supabase 工具建立並確認遠端版本。
 - GitHub Pages workflow：.github/workflows/deploy-pages.yml。需確認 Repo 的 Pages source 使用 GitHub Actions 並確認部署成功，才能回報正式網站上線。
 - Pages workflow 部署前會抽取 index.html 的內嵌 JavaScript 並執行 node --check；修改部署流程時必須保留並通過此語法檢查。
 - MVP 實作與文件狀態有更新時，依第 14 節自我檢查並同步更新本節。
