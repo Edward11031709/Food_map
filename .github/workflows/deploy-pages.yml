@@ -1,8 +1,6 @@
 name: Deploy 黑貓飲食指南 to GitHub Pages
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
