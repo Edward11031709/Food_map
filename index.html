@@ -210,7 +210,7 @@ const labels={type:{cafe:"咖啡廳",breakfast:"早餐店",brunch:"早午餐",re
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const arr=v=>Array.isArray(v)?v:(v?[v]:[]);
 const lab=(k,v)=>(labels[k]||{})[v]||v||"";
-const date=v=>v?new Date(v).toLocaleDateString("zh-TW"):"尚未提供";
+const date=v=>v?new Date(v).toLocaleDateString("zh-TW",{timeZone:"Asia/Taipei"}):"尚未提供";
 const money=p=>{const a=p.price_min==null?null:Number(p.price_min),b=p.price_max==null?null:Number(p.price_max);if(a==null&&b==null)return"價格未提供";if(a!=null&&b!=null&&a!==b)return"NT$ "+a.toLocaleString()+"–"+b.toLocaleString();return"NT$ "+(a??b).toLocaleString();};
 const dining=v=>({limited:"限時",unlimited:"不限時",unknown:"用餐時間未確認",not_applicable:"不適用"}[v]||"用餐時間未確認");
 const verified=v=>({verified:"已查證",partially_verified:"部分查證",needs_review:"待確認",unverified:"尚未查證",closed:"已確認歇業"}[v]||"查證狀態未提供");
