@@ -501,4 +501,5 @@ Supabase 是正式店家資料的主要資料來源（source of truth）。網�
 - Leaflet 地圖使用 OSM standard raster tiles；marker 僅取自已發布店家有效座標，且清單與地圖套用相同篩選結果。MVP 不做地址 geocoding。
 - 初版資料庫 migration：supabase/migrations/20261116000100_create_food_guide_core.sql。此 migration 尚未因為檔案存在而視為已套用；只有 Supabase migration / schema 驗證成功後才能標示完成。
 - GitHub Pages workflow：.github/workflows/deploy-pages.yml。需確認 Repo 的 Pages source 使用 GitHub Actions 並確認部署成功，才能回報正式網站上線。
+- Pages workflow 部署前會抽取 index.html 的內嵌 JavaScript 並執行 node --check；修改部署流程時必須保留並通過此語法檢查。
 - MVP 實作與文件狀態有更新時，依第 14 節自我檢查並同步更新本節。
