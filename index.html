@@ -360,7 +360,7 @@ async function loadUserState(){
 }
 async function loadCommunityCounts(){
  if(!S.db)return;
- const {data,error}=await S.db.rpc("get_place_community_counts");
+ const {data,error}=await S.db.from("place_community_counts").select("place_id,eaten_count");
  if(error){console.warn("Community counts unavailable",error);return;}
  S.communityCounts={};(data||[]).forEach(x=>S.communityCounts[String(x.place_id)]=Number(x.eaten_count)||0);
 }
@@ -453,7 +453,7 @@ async function load(){
  const [r,sr,stats,sessionRes]=await Promise.all([
   db.from("places").select("*, place_hours(*), menu_items(*), place_sources(sources(*)), place_mrt_stations(station_id, straight_line_distance_m, walking_distance_m, walking_minutes, verification_status, mrt_stations(station_name, station_name_en, line_ids, station_source_url))").eq("is_published",true).order("name"),
   db.from("mrt_stations").select("id,station_name,station_name_en,line_ids,target_place_count").eq("is_active",true).order("station_name"),
-  db.rpc("get_place_community_counts"),
+  db.from("place_community_counts").select("place_id,eaten_count"),
   db.auth.getSession()
  ]);
  if(r.error)throw r.error;if(sr.error)throw sr.error;
