@@ -10,7 +10,7 @@
 - 文件：docs/data-dictionary.md 與 docs/map.md。
 - 正式 AI 開發規範：AGENTS.md；agent.md 是相容入口。
 
-目前不放入虛構店家或測試店家。Food_map Supabase 已建立六張核心資料表，完成 RLS 與公開唯讀權限設定；前端已設定 publishable key 並連線。資料庫目前 0 筆店家，因此網站會顯示正常空狀態，而非虛構資料。
+目前不放入虛構店家或測試店家。Food_map Supabase 已建立六張核心資料表，完成 RLS 與公開唯讀權限設定；前端已設定 publishable key，並通過資料庫層級的匿名 SELECT／關聯查詢測試。資料庫目前 0 筆店家，因此網站會顯示正常空狀態，而非虛構資料。
 
 ## 本機預覽
 
