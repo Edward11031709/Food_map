@@ -503,3 +503,16 @@ Supabase 是正式店家資料的主要資料來源（source of truth）。網�
 - GitHub Pages workflow：.github/workflows/deploy-pages.yml。需確認 Repo 的 Pages source 使用 GitHub Actions 並確認部署成功，才能回報正式網站上線。
 - Pages workflow 部署前會抽取 index.html 的內嵌 JavaScript 並執行 node --check；修改部署流程時必須保留並通過此語法檢查。
 - MVP 實作與文件狀態有更新時，依第 14 節自我檢查並同步更新本節。
+
+
+## 16. 品牌視覺與主題規範（強制）
+
+網站主題固定採用「高貴星空宇宙」方向，完整色票與元件規範以 `docs/design-system.md` 為準。任何視覺調整都必須先維持全站午夜星空主題，再用分類色輔助辨識，不可讓分類色取代主題。
+
+- 全站主背景採午夜藍黑；主文字使用月光象牙白，次要文字使用可讀性足夠的星霧灰藍。
+- 香檳金是品牌主輔色，柔紫與星塵青為星雲輔色。避免高飽和霓虹、純黑大色塊、刺眼發光與過度動畫。
+- 分類色必須由穩定分類 ID（例如 `business_type`／`data-type`）驅動，不能依店家排序或隨機分配。完整色票見 `docs/design-system.md`。
+- 地圖採低彩度深色視覺，店家 marker 依穩定分類 ID 顯示低飽和分類色；OpenStreetMap attribution 必須清晰可見。
+- 星點、星雲僅能作為低對比背景裝飾，不能遮擋內容；必須支援 `prefers-reduced-motion`，並維持手機效能及文字對比。
+- 導覽、搜尋、篩選、卡片、詳情 modal、地圖彈窗及頁尾必須共享相同的設計 tokens；不得重新引入舊有米白／橘色主題。
+
