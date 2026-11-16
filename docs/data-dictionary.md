@@ -71,3 +71,59 @@ sources 保存公開來源名稱、網址、來源類型、授權資訊與擷取
 - `source_url` 與 `last_verified_at` 記錄此關聯的依據及查證時間。
 
 `is_published=true` 代表候選資料可以在網站公開顯示，不等於資料已驗證；請依 verification_status 顯示「部分查證／待確認」。Google Maps 搜尋 URL 是導航與人工核對入口，不得作為精確座標或營業狀態的證據。
+
+ 
+## profiles（會員顯示資料）
+
+| 欄位 | 型別 | 用途 |
+|---|---|---|
+| user_id | uuid | 對應 auth.users.id，主鍵 |
+| display_name | text | 會員顯示名稱，可由本人修改 |
+| created_at / updated_at | timestamptz | 建立與更新時間 |
+
+RLS 僅允許會員 SELECT 與 UPDATE 自己的 profile；公開角色不可讀取。
+
+## user_roles（受控角色）
+
+- user_id 對應 auth.users.id，主鍵。
+- role 僅允許 user 或 admin；新註冊會員預設 user。
+- 會員只能 SELECT 自己的角色；anon/authenticated 沒有 INSERT、UPDATE 或 DELETE 權限。
+- 管理員升級必須由資料庫受控操作完成，不依賴可由會員自行修改的 user_metadata 判斷管理權。
+
+## favorites（會員收藏）
+
+| 欄位 | 型別 | 用途 |
+|---|---|---|
+| user_id | uuid | 收藏擁有者，對應 auth.users |
+| place_id | uuid | 收藏的 places.id |
+| created_at | timestamptz | 收藏時間 |
+
+複合主鍵 (user_id, place_id) 防止重複收藏。RLS 僅允許本人讀取、新增或刪除自己的收藏；新增時只允許已發布店家。
+
+## place_visits（會員吃過標記）
+
+| 欄位 | 型別 | 用途 |
+|---|---|---|
+| user_id | uuid | 標記擁有者，對應 auth.users |
+| place_id | uuid | 吃過的 places.id |
+| eaten_at | timestamptz | 建立標記的時間 |
+
+一位會員對同一家店只有一筆吃過標記；本人可以讀取、新增或刪除。這是「是否吃過」的簡單二元標記，不代表評分、評論或推薦，也不公開會員身份。
+
+## place_community_counts（公開累積數）
+
+| 欄位 | 型別 | 用途 |
+|---|---|---|
+| place_id | uuid | 店家主檔，主鍵及外鍵 |
+| eaten_count | integer | 會員標記吃過的累積人數 |
+| updated_at | timestamptz | 統計更新時間 |
+
+匿名及登入會員僅能 SELECT 已發布店家的彙總數字。資料庫 trigger 函式在 place_visits INSERT／DELETE 時同步計數；觸發器函式採 SECURITY DEFINER 並撤銷一般角色 EXECUTE 權限，使用者不能直接呼叫或修改計數。彙總表不含 user_id，不能還原會員名單。
+
+## Auth 與角色安全
+
+- 使用 Supabase Auth email/password 登入；若啟用郵件驗證，必須完成 Email 確認後才有一般登入 session。
+- handle_new_user() trigger 為新 Auth 使用者建立 profile 與 user 角色；該函式僅供 Auth trigger 呼叫。
+- user_roles 的寫入只允許資料庫受控管理流程；不要授予前端自行升級角色的權限。
+- 前端僅使用 publishable key；永遠不可公開 service_role 或 secret key。
+- 網站 UI 讀取自己的收藏／吃過標記及角色，所有資料邊界仍由 RLS 與 GRANT 強制，不依賴前端隱藏按鈕。
