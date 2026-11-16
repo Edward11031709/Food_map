@@ -51,7 +51,7 @@ python -m http.server 8000
 
 ## GitHub Pages
 
-部署 workflow 位於 .github/workflows/deploy-pages.yml。請在 GitHub Repo → Settings → Pages 將 Build and deployment 設為 GitHub Actions，確認 Actions workflow 成功後才算正式上線。
+GitHub Pages 目前由 GitHub Pages 內建的 pages build and deployment 流程隨 main 更新發布；最新提交 00ba2ff955c469337fe4661eb8f62e3692ee0e36 已由該流程成功完成。專案的 .github/workflows/deploy-pages.yml 保留為手動 workflow_dispatch 備援，避免與 Pages 內建部署同時執行而競爭部署鎖。若更改 Pages 的 Build and deployment 來源，必須同步調整部署流程，確保同一時間只有一條自動部署路徑。
 
 預期網站網址：
 https://edward11031709.github.io/Food_map/
