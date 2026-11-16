@@ -25,10 +25,10 @@
 - 每次重大地圖功能變更前重新檢查 OSM 官方政策。
 
 
-## 星空深色地圖視覺
+## 星空主題搭配白色簡約地圖
 
-- 保留 Leaflet + OpenStreetMap standard raster tiles；目前不依賴第三方地圖 API key。
-- 透過 Leaflet `.leaflet-tile-pane` 套用灰階反相及亮度／對比濾鏡，呈現深石墨與海軍藍的低彩度底圖；濾鏡只套用底圖，不得套用到 marker、控制項或 attribution。
-- 店家 Marker 使用自訂星點圓形圖示，預設香檳金，並依 `business_type` 使用低飽和分類色。marker 點擊仍需可開啟店家詳情。
-- 縮放按鈕、popup 與 attribution 使用深色面板；OpenStreetMap 署名必須保持可辨識並連結至版權頁。
-- 網站主題色票、marker 色票及元件規則統一維護於 `docs/design-system.md`。
+- 維持 Leaflet + OpenStreetMap standard raster tiles；白色地圖直接使用原始標準圖磚，不套用灰階反相濾鏡。
+- 地圖外框、縮放控制、署名區及 popup 使用白色／淺灰面板，文字採深海軍藍與石墨灰；香檳金只用於細節與互動強調。
+- 店家 Marker 使用香檳金星點作為預設圖示，各店家類型可以套用低飽和分類色；marker 點擊仍可開啟店家詳情。
+- 店家詳情頁提供 Google 地圖搜尋連結；已查證且有官網的店家同時顯示官方網站。Google Maps URL 以店名及可用地址組成搜尋連結，不應當作精確座標證據。
+- 地圖 attribution 必須保持清晰可見並連結至版權頁。
