@@ -282,6 +282,15 @@ Supabase 是正式店家資料的主要資料來源（source of truth）。網�
 - 店家卡片及詳情頁要清楚標示「最後確認日期」及查證狀態。日期只取自 `last_verified_at`；若為 null，顯示「尚無確認紀錄」，不能以 `created_at`／`updated_at` 代替。日期以 `Asia/Taipei` 顯示。
 - `verified`、`partially_verified`、`needs_review` 等狀態必須保留文字標籤，不得只用顏色暗示；最近確認日期不代表所有欄位均已確認。
 
+### 9.1.2 會員與社群互動
+- 使用 Supabase Auth email/password 管理會員身份；Email 確認、Redirect URLs 依 Supabase Auth 專案設定執行。
+- 已登入會員可收藏店家及標記「我吃過」；未登入點擊時引導登入，不寫入匿名個人資料。
+- favorites、place_visits 僅允許本人 SELECT／INSERT／DELETE；會員不得讀取其他會員的明細。
+- 公開頁面只顯示 place_community_counts.eaten_count 累積數；不得公開 user_id、會員 Email、收藏名單或吃過名單。
+- user_roles 僅允許本人讀取自己的角色；前端不得寫入或修改角色，不得使用可由會員編輯的 user_metadata 決定管理權。
+- 新帳號一律由 Auth trigger 建立為 user；管理員升級只能由資料庫受控管理流程處理，須依使用者明確確認的實際註冊 Email／Auth UID，不可猜測帳號。
+- 「我吃過」是二元紀錄，不代表評價、評論或推薦；本功能不公開會員身份，也不可自行新增未授權的評論內容。
+
 首頁應讓使用者快速回答「附近或指定地區有什麼店可以吃／喝」。至少規劃：
 
 - 品牌標題「黑貓飲食指南」與清楚的網站簡介。
@@ -537,3 +546,15 @@ Supabase 是正式店家資料的主要資料來源（source of truth）。網�
 - `is_published=true` 代表候選資料可在網站公開顯示，不等於已驗證；網站必須清楚顯示 `verification_status`。公開候選不可隱去「待確認」或「部分查證」標示。
 - 無精確座標的店家不建立地圖 marker；提供 Google Maps 搜尋連結及來源，等待座標查證後再上圖。
 - 每次擴大站點批次後，需執行第 14 節 Agent 自我檢查，並同步更新 `docs/mrt-coverage.md`、資料字典及本節。
+
+
+## 18. 會員帳號、收藏與吃過標記（2026-11-17）
+
+- Auth 身份由 Supabase Auth 管理；前端只使用 publishable key。使用者 Email、密碼及 session 不得被寫入公開店家資料或 Git。
+- 新 Auth 使用者由 handle_new_user() trigger 建立 profiles 與預設 user_roles.role=user。Auth trigger 函式只供 trigger 呼叫，須撤銷 public／anon／authenticated 的 EXECUTE。
+- profiles 僅允許本人讀取及修改 display_name；user_roles 僅允許本人讀取，任何角色更新必須透過資料庫受控操作。
+- favorites 及 place_visits 採 (user_id, place_id) 複合主鍵，RLS 保護 SELECT、INSERT 與 DELETE；INSERT 只接受已發布店家。
+- place_community_counts 是唯一允許匿名 SELECT 的社群互動衍生資料，只含 place_id 與 eaten_count，並透過私有觸發器同步；不公開或查詢任何個人互動明細。
+- 不要為了公開 aggregate 建立可供 anon 呼叫的廣義 SECURITY DEFINER RPC；優先使用只讀彙總表。若確需 SECURITY DEFINER，必須使用空 search_path、schema-qualified references、最小 EXECUTE 權限並檢查 Security Advisor。
+- 管理員指定前，要求使用者提供其實際用來註冊本站的 Email，必要時先等 Auth 使用者建立後再核對 UID；不可根據 ChatGPT 顯示名稱或未確認 Email 授權。
+- 會員功能與資料政策若有變動，必須同步更新本節及 docs/data-dictionary.md。
