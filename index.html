@@ -165,13 +165,43 @@ a{color:var(--goldBright);text-decoration-color:#e4c98a66;text-underline-offset:
 @media(max-width:760px){.group-grid{grid-template-columns:1fr}.map-shell{padding:10px;border-radius:16px}.map-head{align-items:flex-start}.map-head h3{font-size:18px}#map{height:470px}.map-stats{padding-top:5px}}
 @media(max-width:420px){.primary-filters{grid-template-columns:1fr}.advanced-filters summary{flex-wrap:wrap}.advanced-filters summary small{width:100%}.map-head{flex-direction:column}.map-stats{align-items:flex-start}}
 
+
+/* Member account and community interactions */
+.account-btn{border:1px solid #d9c18a66;border-radius:999px;background:#d9c18a12;color:#f3e7c7;padding:8px 15px;font-size:11px;font-weight:750;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
+.account-btn:hover{background:#d9c18a24;border-color:#e4c98a}
+.card[data-type="snack"]{--category:#edb97a}
+.category-label[data-type="snack"] i{background:#edb97a;box-shadow:0 0 0 3px #edb97a22}
+.card-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:13px;padding-top:11px;border-top:1px solid #ffffff13}
+.card-action{border:1px solid #485574;border-radius:999px;background:#111b33;color:#cbd4e7;padding:6px 11px;font-size:10px;font-weight:750;cursor:pointer}
+.card-action:hover{border-color:#e4c98a;color:#f6e7bf}
+.card-action[aria-pressed="true"]{border-color:#e4c98a;background:#e4c98a18;color:#f5dca6}
+.card-action[data-action="favorite"][aria-pressed="true"]{color:#f2b6c6;border-color:#da8ea4;background:#da8ea415}
+.community-count{font-size:10px;color:#8995ad;margin-left:auto}
+.account-modal{width:min(470px,100%)}
+.account-intro{font-size:13px;color:#bbc5d9;margin:15px 0}
+.auth-form{display:grid;gap:12px}
+.account-field label{display:block;font-size:11px;color:#b8c3d8;margin-bottom:6px}
+.account-field input{width:100%;border:1px solid #394765;border-radius:10px;background:#0b142b;color:#f4f0e8;padding:12px 13px;outline:none}
+.account-field input:focus{border-color:#e4c98a;box-shadow:0 0 0 3px #e4c98a22}
+.auth-submit,.account-wide{width:100%;margin-top:5px}
+.account-link{border:0;background:transparent;color:#e7d39e;text-decoration:underline;text-underline-offset:3px;font-size:12px;cursor:pointer;padding:8px}
+.account-message{font-size:11px;color:#93a0ba;line-height:1.7;margin:13px 0 4px}
+.account-role{display:inline-flex;border:1px solid #d9c18a66;background:#d9c18a12;color:#f4dfad;border-radius:999px;padding:5px 12px;font-size:11px;font-weight:800}
+.account-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:17px 0}
+.account-stats>div{background:#0d172f;border:1px solid #303e5b;border-radius:13px;padding:13px;text-align:center}
+.account-stats b{display:block;font-size:24px;color:#f4dfad;line-height:1.2}
+.account-stats span{display:block;font-size:10px;color:#9ca9c2;margin-top:5px}
+.signout-link{display:block;margin:14px auto 0;color:#b4bfd4}
+.site-toast{position:fixed;left:50%;bottom:24px;z-index:120;transform:translateX(-50%);max-width:min(92vw,560px);padding:11px 16px;border:1px solid #d9c18a66;border-radius:12px;background:#111a31f5;color:#f4ead3;box-shadow:0 14px 44px #0009;font-size:12px;text-align:center}
+@media(max-width:760px){.account-btn{padding:7px 11px;font-size:10px;max-width:120px}.card-actions{gap:6px}.community-count{width:100%;margin:0}}
+
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="brand" href="#top"><span class="catlogo">🐈‍⬛</span><span><b>黑貓飲食指南</b><small>BLACK CAT FOOD GUIDE</small></span></a><nav class="nav"><a href="#explore">探索店家</a><a href="#mapArea" id="navMap">地圖找店</a><a href="#about">關於指南</a></nav><a href="https://www.openstreetmap.org/copyright" class="muted">資料重視來源 ↗</a></div></header>
+<header class="top"><div class="wrap"><a class="brand" href="#top"><span class="catlogo">🐈‍⬛</span><span><b>黑貓飲食指南</b><small>BLACK CAT FOOD GUIDE</small></span></a><nav class="nav"><a href="#explore">探索店家</a><a href="#mapArea" id="navMap">地圖找店</a><a href="#about">關於指南</a></nav><button type="button" class="account-btn" id="accountBtn">登入 / 註冊</button><a href="https://www.openstreetmap.org/copyright" class="muted">資料重視來源 ↗</a></div></header>
 <main id="top">
 <section class="hero"><div class="wrap"><div class="kicker">TAIWAN LOCAL FOOD DISCOVERY</div><h1>今天，想吃點<span>什麼？</span></h1><p>從巷口咖啡到深夜食堂，用清楚、可信的店家資訊，陪你找到喜歡的味道。</p><form class="search" id="searchForm"><span>⌕</span><input id="searchInput" type="search" placeholder="搜尋店名、餐點、類型或地區…" aria-label="搜尋店家"><button>搜尋店家 →</button></form><div class="note">✦ 店家資訊以可追溯來源為準，未知資料不猜測。</div></div></section>
-<section class="section wrap"><div class="heading"><div><div class="kicker">START EXPLORING</div><h2>從喜歡的類型開始</h2></div><p>挑一個今天的美食心情</p></div><div class="chips" id="quick"><button class="chip" data-k="type" data-v="cafe">☕ 咖啡廳</button><button class="chip" data-k="type" data-v="breakfast">🥐 早餐</button><button class="chip" data-k="meal" data-v="lunch">🍚 午餐</button><button class="chip" data-k="diet" data-v="vegetarian">🥬 素食</button><button class="chip" data-k="cuisine" data-v="japanese">🍣 日式</button><button class="chip" data-k="type" data-v="dessert">🍰 甜點</button></div></section>
+<section class="section wrap"><div class="heading"><div><div class="kicker">START EXPLORING</div><h2>從喜歡的類型開始</h2></div><p>挑一個今天的美食心情</p></div><div class="chips" id="quick"><button class="chip" data-k="type" data-v="cafe">☕ 咖啡廳</button><button class="chip" data-k="type" data-v="breakfast">🥐 早餐</button><button class="chip" data-k="meal" data-v="lunch">🍚 午餐</button><button class="chip" data-k="diet" data-v="vegetarian">🥬 素食</button><button class="chip" data-k="cuisine" data-v="japanese">🍣 日式</button><button class="chip" data-k="type" data-v="dessert">🍰 甜點</button><button class="chip" data-k="type" data-v="snack">🍜 平民小吃</button></div></section>
 <section class="section wrap" id="explore"><div class="heading"><div><div class="kicker">THE FOOD DIRECTORY</div><h2>探索好店</h2></div><div class="status" id="status">等待資料連線</div></div>
 <div class="notice hidden" id="notice"></div>
 <div class="filters">
@@ -183,7 +213,7 @@ a{color:var(--goldBright);text-decoration-color:#e4c98a66;text-underline-offset:
 <details class="advanced-filters">
 <summary><span>更多篩選條件</span><small>類型・餐期・料理・飲食需求・預算</small></summary>
 <div class="grid">
-<div class="field"><label for="fType">店家類型</label><select id="fType"><option value="">所有類型</option><option value="cafe">咖啡廳</option><option value="breakfast">早餐店</option><option value="brunch">早午餐</option><option value="restaurant">餐廳</option><option value="bakery">麵包店</option><option value="dessert">甜點店</option><option value="drink_shop">飲料店</option><option value="__unclassified">待分類</option></select></div>
+<div class="field"><label for="fType">店家類型</label><select id="fType"><option value="">所有類型</option><option value="cafe">咖啡廳</option><option value="breakfast">早餐店</option><option value="brunch">早午餐</option><option value="restaurant">餐廳</option><option value="bakery">麵包店</option><option value="dessert">甜點店</option><option value="drink_shop">飲料店</option><option value="snack">平民小吃</option><option value="__unclassified">待分類</option></select></div>
 <div class="field"><label for="fMeal">餐期</label><select id="fMeal"><option value="">不限餐期</option><option value="breakfast">早餐</option><option value="brunch">早午餐</option><option value="lunch">午餐</option><option value="afternoon_tea">下午茶</option><option value="dinner">晚餐</option><option value="supper">宵夜</option></select></div>
 <div class="field"><label for="fCuisine">料理類型</label><select id="fCuisine"><option value="">不限料理</option><option value="taiwanese">台式</option><option value="japanese">日式</option><option value="korean">韓式</option><option value="chinese">中式</option><option value="italian">義式</option><option value="thai">泰式</option></select></div>
 <div class="field"><label for="fDiet">飲食需求</label><select id="fDiet"><option value="">不限需求</option><option value="vegetarian">素食選項</option><option value="ovo_lacto_vegetarian">蛋奶素</option><option value="vegan">全素／純素</option><option value="halal">清真</option></select></div>
@@ -200,13 +230,41 @@ a{color:var(--goldBright);text-decoration-color:#e4c98a66;text-underline-offset:
 </section></main>
 <footer class="footer" id="about"><div class="wrap"><span>🐈‍⬛ 黑貓飲食指南 · Food_map</span><span>用心整理每一份好味道</span><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">地圖資料與授權 ↗</a></div></footer>
 <div id="backdrop" class="modalback hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modalhead"><div><div class="kicker">BLACK CAT FOOD GUIDE</div><h2 id="modalTitle"></h2></div><button class="close" id="closeModal" aria-label="關閉">×</button></div><div id="modalBody"></div></div></div>
+
+<div id="accountBackdrop" class="modalback hidden" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+ <div class="modal account-modal">
+  <div class="modalhead"><div><div class="kicker">BLACK CAT MEMBER</div><h2 id="accountTitle">會員中心</h2></div><button class="close" id="closeAccountModal" aria-label="關閉">×</button></div>
+  <section id="accountSignedOut">
+   <p class="account-intro">登入後可收藏店家、標記自己吃過的店，也能查看大家的累積紀錄。</p>
+   <form id="authForm" class="auth-form">
+    <div class="account-field hidden" id="authNameField"><label for="authName">顯示名稱</label><input id="authName" type="text" maxlength="40" autocomplete="nickname" placeholder="在網站上顯示的名稱"></div>
+    <div class="account-field"><label for="authEmail">電子郵件</label><input id="authEmail" type="email" required autocomplete="email" placeholder="name@example.com"></div>
+    <div class="account-field"><label for="authPassword">密碼</label><input id="authPassword" type="password" required minlength="8" autocomplete="current-password" placeholder="至少 8 個字元"></div>
+    <button class="primary auth-submit" id="authSubmit" type="submit">登入</button>
+    <button class="account-link" id="authModeToggle" type="button">還沒有帳號？建立會員</button>
+   </form>
+   <p class="account-message" id="authMessage" role="status" aria-live="polite">使用電子郵件與密碼登入；註冊可能需要先完成信箱驗證。</p>
+  </section>
+  <section id="accountSignedIn" class="hidden">
+   <p class="account-intro">已登入 <strong id="accountEmail"></strong></p>
+   <div class="account-role" id="accountRole">一般會員</div>
+   <div class="account-stats"><div><b id="accountFavoriteCount">0</b><span>我的收藏</span></div><div><b id="accountVisitedCount">0</b><span>我吃過的店</span></div></div>
+   <button type="button" class="primary account-wide" id="favoritesOnly">只看我的收藏</button>
+   <p class="account-message" id="accountMessage">收藏與吃過紀錄只有你本人可以修改；公開只顯示每家店的累積吃過人數，不會公開會員名單。</p>
+   <button type="button" class="account-link signout-link" id="signOutBtn">登出</button>
+  </section>
+ </div>
+</div>
+<div id="siteToast" class="site-toast hidden" role="status" aria-live="polite"></div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
 "use strict";
 const CFG={url:"https://ummatvzyffqjhdhpnuar.supabase.co",key:"sb_publishable_Oqh8o1txNXYbxmq0-KfNFQ_RNZN1sSe",tile:"https://tile.openstreetmap.org/{z}/{x}/{y}.png",center:[25.0375,121.5637],zoom:12};
-const $=s=>document.querySelector(s),S={places:[],filtered:[],stations:[],map:null,layer:null,filters:{q:"",type:"",meal:"",cuisine:"",diet:"",dining:"",price:"",city:"",station:""}};
-const labels={type:{cafe:"咖啡廳",breakfast:"早餐店",brunch:"早午餐",restaurant:"餐廳",bakery:"麵包店",dessert:"甜點店",drink_shop:"飲料店",__unclassified:"待分類"},meal:{breakfast:"早餐",brunch:"早午餐",lunch:"午餐",afternoon_tea:"下午茶",dinner:"晚餐",supper:"宵夜"},cuisine:{taiwanese:"台式",japanese:"日式",korean:"韓式",chinese:"中式",italian:"義式",thai:"泰式"},diet:{vegetarian:"素食選項",ovo_lacto_vegetarian:"蛋奶素",vegan:"全素／純素",halal:"清真選項"}};
+const $=s=>document.querySelector(s),S={places:[],filtered:[],stations:[],map:null,layer:null,db:null,user:null,userRole:"user",profileName:"",favorites:new Set(),visited:new Set(),communityCounts:{},favoriteOnly:false,toastTimer:null,filters:{q:"",type:"",meal:"",cuisine:"",diet:"",dining:"",price:"",city:"",station:""}};
+let authMode="signin";
+const labels={type:{cafe:"咖啡廳",breakfast:"早餐店",brunch:"早午餐",restaurant:"餐廳",bakery:"麵包店",dessert:"甜點店",drink_shop:"飲料店",snack:"平民小吃",__unclassified:"待分類"},meal:{breakfast:"早餐",brunch:"早午餐",lunch:"午餐",afternoon_tea:"下午茶",dinner:"晚餐",supper:"宵夜"},cuisine:{taiwanese:"台式",japanese:"日式",korean:"韓式",chinese:"中式",italian:"義式",thai:"泰式"},diet:{vegetarian:"素食選項",ovo_lacto_vegetarian:"蛋奶素",vegan:"全素／純素",halal:"清真選項"}};
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const arr=v=>Array.isArray(v)?v:(v?[v]:[]);
 const lab=(k,v)=>(labels[k]||{})[v]||v||"";
@@ -216,48 +274,150 @@ const dining=v=>({limited:"限時",unlimited:"不限時",unknown:"用餐時間�
 const verified=v=>({verified:"已查證",partially_verified:"部分查證",needs_review:"待確認",unverified:"尚未查證",closed:"已確認歇業"}[v]||"查證狀態未提供");
 const safeurl=v=>{try{const u=new URL(v);return /^https?:$/.test(u.protocol)?u.href:"";}catch(e){return"";}};
 function setStatus(k,t){$("#status").className="status "+k;$("#status").textContent=t;}
-function match(p){const f=S.filters,q=f.q.toLowerCase(),hay=[p.name,p.description,p.address,p.city,p.district,...arr(p.aliases),...(p.menu_items||[]).map(x=>x.name),...(p.place_mrt_stations||[]).map(x=>x.mrt_stations?.station_name)].join(" ").toLowerCase();if(q&&!hay.includes(q))return false;if(f.type==="__unclassified"&&arr(p.business_type).length)return false;if(f.type&&f.type!=="__unclassified"&&!arr(p.business_type).includes(f.type))return false;if(f.meal&&!arr(p.meal_times).includes(f.meal))return false;if(f.cuisine&&!arr(p.cuisines).includes(f.cuisine))return false;if(f.diet&&!arr(p.dietary_options).includes(f.diet))return false;if(f.dining&&p.dining_time_policy!==f.dining)return false;if(f.price){const budget=Number(f.price);const upper=p.price_max!=null?Number(p.price_max):(p.price_min!=null?Number(p.price_min):null);if(upper===null||upper>budget)return false;}if(f.city&&p.city!==f.city)return false;if(f.station&&!arr(p.place_mrt_stations).some(x=>x.station_id===f.station))return false;return true;}
+function match(p){
+ const f=S.filters,q=f.q.toLowerCase(),hay=[p.name,p.description,p.address,p.city,p.district,...arr(p.aliases),...(p.menu_items||[]).map(x=>x.name),...(p.place_mrt_stations||[]).map(x=>x.mrt_stations?.station_name)].join(" ").toLowerCase();
+ if(q&&!hay.includes(q))return false;
+ if(S.favoriteOnly&&!S.favorites.has(String(p.id)))return false;
+ if(f.type==="__unclassified"&&arr(p.business_type).length)return false;
+ if(f.type&&f.type!=="__unclassified"&&!arr(p.business_type).includes(f.type))return false;
+ if(f.meal&&!arr(p.meal_times).includes(f.meal))return false;
+ if(f.cuisine&&!arr(p.cuisines).includes(f.cuisine))return false;
+ if(f.diet&&!arr(p.dietary_options).includes(f.diet))return false;
+ if(f.dining&&p.dining_time_policy!==f.dining)return false;
+ if(f.price){const budget=Number(f.price),upper=p.price_max!=null?Number(p.price_max):(p.price_min!=null?Number(p.price_min):null);if(upper===null||upper>budget)return false;}
+ if(f.city&&p.city!==f.city)return false;
+ if(f.station&&!arr(p.place_mrt_stations).some(x=>x.station_id===f.station))return false;
+ return true;
+}
+function placeActions(p){
+ const id=String(p.id),fav=S.favorites.has(id),eaten=S.visited.has(id),count=S.communityCounts[id]||0;
+ return '<div class="card-actions"><button type="button" class="card-action" data-action="favorite" data-id="'+esc(id)+'" aria-pressed="'+String(fav)+'">'+(fav?'♥ 已收藏':'♡ 收藏')+'</button><button type="button" class="card-action" data-action="visited" data-id="'+esc(id)+'" aria-pressed="'+String(eaten)+'">'+(eaten?'✓ 我吃過':'我吃過')+'</button><span class="community-count">'+count+' 人吃過</span></div>';
+}
 function render(){
-S.filtered=S.places.filter(match);
-$("#count").textContent=S.filtered.length;
-$("#resultNote").textContent=S.places.length?"/ 共 "+S.places.length+" 間公開名錄候選店家":"/ 等待第一批店家資料";
-const typeIcons={cafe:"☕",breakfast:"🥐",brunch:"🥞",restaurant:"🍽",bakery:"🥖",dessert:"🍰",drink_shop:"🥤"};
-const knownTypes=Object.keys(labels.type).filter(k=>k!=="__unclassified");
-const presentTypes=[...new Set(S.places.flatMap(p=>arr(p.business_type)))];
-const categories=knownTypes.filter(k=>presentTypes.includes(k)).map(k=>({value:k,label:lab("type",k),icon:typeIcons[k]||"•",count:S.places.filter(p=>arr(p.business_type).includes(k)).length}));
-const otherTypes=presentTypes.filter(k=>!knownTypes.includes(k)).map(k=>({value:k,label:lab("type",k),icon:"•",count:S.places.filter(p=>arr(p.business_type).includes(k)).length}));
-const uncategorized=S.places.filter(p=>!arr(p.business_type).length).length;
-const pills=[{value:"",label:"全部店家",icon:"✦",count:S.places.length},...categories,...otherTypes];
-if(uncategorized)pills.push({value:"__unclassified",label:"待分類",icon:"◇",count:uncategorized});
-$("#categoryNav").innerHTML=pills.map(c=>'<button type="button" class="category-pill '+(S.filters.type===c.value?"active":"")+'" data-category="'+esc(c.value)+'"><span class="category-icon">'+esc(c.icon)+'</span><span>'+esc(c.label)+'</span><b>'+c.count+'</b></button>').join("");
-const partial=S.places.filter(p=>p.verification_status==="partially_verified").length;
-const review=S.places.filter(p=>p.verification_status==="needs_review").length;
-$("#resultSummary").textContent="資料概況："+S.places.length+" 間店家 · "+partial+" 間部分查證 · "+review+" 間待確認 · "+uncategorized+" 間待分類";
-const categoryKey=p=>arr(p.business_type)[0]||"__unclassified";
-const allKeys=[...knownTypes,...otherTypes.map(t=>t.value),"__unclassified"];
-const groupKeys=allKeys.filter(k=>S.filtered.some(p=>categoryKey(p)===k));
-const cardMarkup=p=>{
- const type=categoryKey(p),icon=typeIcons[type]||"◇",category=type==="__unclassified"?"待分類":lab("type",type)||type;
- const tags=[...arr(p.cuisines).map(v=>lab("cuisine",v)),...arr(p.dietary_options).map(v=>lab("diet",v))].filter(Boolean).slice(0,4);
- const tagHtml=tags.length?'<div class="tags">'+tags.map(t=>'<span class="tag">'+esc(t)+'</span>').join("")+'</div>':'';
- const status=p.verification_status||"unknown",checked=p.last_verified_at?date(p.last_verified_at):"尚無確認紀錄";
- return '<article class="card" data-type="'+esc(type)+'" data-place="'+esc(p.id)+'"><div class="card-topline"><span class="category-label" data-type="'+esc(type)+'"><i></i>'+esc(icon)+' '+esc(category)+'</span><span class="verify-badge" data-status="'+esc(status)+'">'+esc(verified(status))+'</span></div><h3>'+esc(p.name)+'</h3><p class="desc">'+esc(p.description||"店家介紹尚未提供")+'</p>'+tagHtml+'<div class="meta"><span>⌖ '+esc(p.address||"地址未提供")+'</span><strong>'+esc(money(p))+'</strong></div><div class="foot"><span class="verify">最後確認日期：'+esc(checked)+'</span><button class="detail" data-detail="'+esc(p.id)+'">查看詳情 →</button></div></article>';
-};
-$("#cards").innerHTML=groupKeys.map(key=>{
- const items=S.filtered.filter(p=>categoryKey(p)===key),label=key==="__unclassified"?"待分類":lab("type",key)||key;
- return '<section class="category-group"><div class="category-group-head"><div><h3>'+esc(label)+'</h3><span>'+(key==="__unclassified"?"等待補上正確店家類型":"依店家主要類型整理")+'</span></div><b>'+items.length+' 間</b></div><div class="group-grid">'+items.map(cardMarkup).join("")+'</div></section>';
-}).join("");
-const empty=$("#empty");
-if(!S.places.length){empty.classList.remove("hidden");empty.querySelector("h3").textContent="好店資料正在準備中";empty.querySelector("p").textContent="目前沒有已公開的店家資料。完成資料整理與查證後，這裡就會出現你的美食地圖。";}
-else if(!S.filtered.length){empty.classList.remove("hidden");empty.querySelector("h3").textContent="沒有找到符合條件的店家";empty.querySelector("p").textContent="試著調整篩選條件，或清除條件重新探索。";}
-else empty.classList.add("hidden");
-$("#active").innerHTML=Object.entries(S.filters).filter(x=>x[1]&&x[0]!=="q").map(x=>'<button data-clear="'+x[0]+'">'+esc(x[0]==="station"?(S.stations.find(st=>st.id===x[1])?.station_name||x[1]):(lab(x[0],x[1])||x[1]))+' ×</button>').join("");
-document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",S.filters[x.dataset.k]===x.dataset.v));
-if(S.layer)markers();
+ S.filtered=S.places.filter(match);
+ $("#count").textContent=S.filtered.length;
+ $("#resultNote").textContent=S.places.length?"/ 共 "+S.places.length+" 間公開名錄候選店家":"/ 等待第一批店家資料";
+ const typeIcons={cafe:"☕",breakfast:"🥐",brunch:"🥞",restaurant:"🍽",bakery:"🥖",dessert:"🍰",drink_shop:"🥤",snack:"🍜"};
+ const knownTypes=Object.keys(labels.type).filter(k=>k!=="__unclassified");
+ const presentTypes=[...new Set(S.places.flatMap(p=>arr(p.business_type)))];
+ const categories=knownTypes.filter(k=>presentTypes.includes(k)).map(k=>({value:k,label:lab("type",k),icon:typeIcons[k]||"•",count:S.places.filter(p=>arr(p.business_type).includes(k)).length}));
+ const otherTypes=presentTypes.filter(k=>!knownTypes.includes(k)).map(k=>({value:k,label:lab("type",k),icon:"•",count:S.places.filter(p=>arr(p.business_type).includes(k)).length}));
+ const uncategorized=S.places.filter(p=>!arr(p.business_type).length).length;
+ const pills=[{value:"",label:"全部店家",icon:"✦",count:S.places.length},...categories,...otherTypes];
+ if(uncategorized)pills.push({value:"__unclassified",label:"待分類",icon:"◇",count:uncategorized});
+ $("#categoryNav").innerHTML=pills.map(c=>'<button type="button" class="category-pill '+(S.filters.type===c.value?"active":"")+'" data-category="'+esc(c.value)+'"><span class="category-icon">'+esc(c.icon)+'</span><span>'+esc(c.label)+'</span><b>'+c.count+'</b></button>').join("");
+ const partial=S.places.filter(p=>p.verification_status==="partially_verified").length;
+ const review=S.places.filter(p=>p.verification_status==="needs_review").length;
+ const unc=S.places.filter(p=>!arr(p.business_type).length).length;
+ $("#resultSummary").textContent="資料概況："+S.places.length+" 間店家 · "+partial+" 間部分查證 · "+review+" 間待確認 · "+unc+" 間待分類";
+ const categoryKey=p=>arr(p.business_type)[0]||"__unclassified";
+ const allKeys=[...knownTypes,...otherTypes.map(t=>t.value),"__unclassified"];
+ const groupKeys=allKeys.filter(k=>S.filtered.some(p=>categoryKey(p)===k));
+ const cardMarkup=p=>{
+  const type=categoryKey(p),icon=typeIcons[type]||"◇",category=type==="__unclassified"?"待分類":lab("type",type)||type;
+  const tags=[...arr(p.cuisines).map(v=>lab("cuisine",v)),...arr(p.dietary_options).map(v=>lab("diet",v))].filter(Boolean).slice(0,4);
+  const tagHtml=tags.length?'<div class="tags">'+tags.map(t=>'<span class="tag">'+esc(t)+'</span>').join("")+'</div>':'';
+  const status=p.verification_status||"unknown",checked=p.last_verified_at?date(p.last_verified_at):"尚無確認紀錄";
+  return '<article class="card" data-type="'+esc(type)+'" data-place="'+esc(p.id)+'"><div class="card-topline"><span class="category-label" data-type="'+esc(type)+'"><i></i>'+esc(icon)+' '+esc(category)+'</span><span class="verify-badge" data-status="'+esc(status)+'">'+esc(verified(status))+'</span></div><h3>'+esc(p.name)+'</h3><p class="desc">'+esc(p.description||"店家介紹尚未提供")+'</p>'+tagHtml+'<div class="meta"><span>⌖ '+esc(p.address||"地址未提供")+'</span><strong>'+esc(money(p))+'</strong></div><div class="foot"><span class="verify">最後確認日期：'+esc(checked)+'</span><button class="detail" data-detail="'+esc(p.id)+'">查看詳情 →</button></div>'+placeActions(p)+'</article>';
+ };
+ $("#cards").innerHTML=groupKeys.map(key=>{
+  const items=S.filtered.filter(p=>categoryKey(p)===key),label=key==="__unclassified"?"待分類":lab("type",key)||key;
+  return '<section class="category-group"><div class="category-group-head"><div><h3>'+esc(label)+'</h3><span>'+(key==="__unclassified"?"等待補上正確店家類型":"依店家主要類型整理")+'</span></div><b>'+items.length+' 間</b></div><div class="group-grid">'+items.map(cardMarkup).join("")+'</div></section>';
+ }).join("");
+ const empty=$("#empty");
+ if(!S.places.length){empty.classList.remove("hidden");empty.querySelector("h3").textContent="好店資料正在準備中";empty.querySelector("p").textContent="目前沒有已公開的店家資料。完成資料整理與查證後，這裡就會出現你的美食地圖。";}
+ else if(!S.filtered.length){empty.classList.remove("hidden");empty.querySelector("h3").textContent=S.favoriteOnly?"你目前還沒有收藏店家":"沒有找到符合條件的店家";empty.querySelector("p").textContent=S.favoriteOnly?"按下店家卡片上的「收藏」，就能在這裡快速找到喜歡的店。":"試著調整篩選條件，或清除條件重新探索。";}
+ else empty.classList.add("hidden");
+ $("#active").innerHTML=Object.entries(S.filters).filter(x=>x[1]&&x[0]!=="q").map(x=>'<button data-clear="'+x[0]+'">'+esc(x[0]==="station"?(S.stations.find(st=>st.id===x[1])?.station_name||x[1]):(lab(x[0],x[1])||x[1]))+' ×</button>').join("")+(S.favoriteOnly?'<button data-clear-favorites="1">我的收藏 ×</button>':'');
+ document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",S.filters[x.dataset.k]===x.dataset.v));
+ refreshAccountUI();
+ if(S.layer)markers();
 }
 function cities(){const sel=$("#fCity"),v=sel.value,a=[...new Set(S.places.map(p=>p.city).filter(Boolean))].sort();sel.innerHTML='<option value="">所有縣市</option>'+a.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");sel.value=a.includes(v)?v:"";}
 function stationOptions(){const sel=$("#fStation"),v=sel.value,counts={};S.places.forEach(p=>(p.place_mrt_stations||[]).forEach(x=>{counts[x.station_id]=(counts[x.station_id]||0)+1;}));sel.innerHTML='<option value="">所有捷運站</option>'+S.stations.map(s=>'<option value="'+esc(s.id)+'">'+esc(s.station_name)+' · '+(counts[s.id]||0)+'/'+Number(s.target_place_count||100)+'</option>').join("");sel.value=S.stations.some(s=>s.id===v)?v:"";}
-function modal(id){const p=S.places.find(x=>String(x.id)===String(id));if(!p)return;const days=["週日","週一","週二","週三","週四","週五","週六"],hs=(p.place_hours||[]).slice().sort((a,b)=>a.day_of_week-b.day_of_week),hour=hs.length?hs.map(r=>'<div class="hour"><span>'+days[Number(r.day_of_week)]+'</span><b>'+(r.is_closed?"公休":r.opens_at&&r.closes_at?esc(r.opens_at.slice(0,5)+"–"+r.closes_at.slice(0,5)):"時間未確認")+'</b></div>').join(""):'<p class="muted">營業時間尚未提供。</p>',menu=p.menu_items?.length?p.menu_items.map(m=>'<div class="menurow"><span>'+esc(m.name)+' '+esc(m.description||"")+'</span><b>'+(m.price==null?"價格未提供":"NT$ "+Number(m.price).toLocaleString())+'</b></div>').join(""):'<p class="muted">尚無可公開的菜單品項。</p>',src=(p.place_sources||[]).map(x=>x.sources).filter(Boolean),sources=src.length?src.map(x=>{const u=safeurl(x.source_url);return'<div class="source">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+esc(x.source_name||"資料來源")+' ↗</a>':esc(x.source_name||"資料來源"))+' · '+esc(date(x.verified_at))+'</div>';}).join(""):'<p class="muted">來源連結尚未提供。</p>',stationRows=(p.place_mrt_stations||[]).map(x=>{const st=x.mrt_stations;if(!st)return"";const link=safeurl(st.station_source_url);const line=arr(st.line_ids).join("、");const distance=x.walking_distance_m!=null?("步行約 "+Number(x.walking_distance_m).toLocaleString()+" 公尺"):x.straight_line_distance_m!=null?("直線約 "+Number(x.straight_line_distance_m).toLocaleString()+" 公尺"):"距離待確認";return '<div class="hour"><span>'+esc(st.station_name)+(line?" · "+esc(line)+"線":"")+(link?' · <a href="'+esc(link)+'" target="_blank" rel="noreferrer">官方資訊</a>':"")+"</span><b>"+esc(distance)+"</b></div>";}).join("")||'<p class="muted">尚未完成最近捷運站與步行距離查證。</p>',has=p.latitude!=null&&p.longitude!=null,url=has?"https://www.openstreetmap.org/?mlat="+encodeURIComponent(p.latitude)+"&mlon="+encodeURIComponent(p.longitude)+"#map=18/"+encodeURIComponent(p.latitude)+"/"+encodeURIComponent(p.longitude):"https://www.openstreetmap.org/search?query="+encodeURIComponent(p.address||p.name),website=safeurl(p.website_url),googleMapsUrl="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent([p.name,p.address].filter(Boolean).join(" "));$("#modalTitle").textContent=p.name;$("#modalBody").innerHTML='<p class="muted">'+esc(p.description||"目前沒有店家簡介。")+'</p><div class="modalgrid"><section class="box"><h3>店家資訊</h3><p>⌖ '+esc(p.address||"地址未提供")+'</p><p>電話：'+(p.phone?'<a href="tel:'+esc(p.phone)+'">'+esc(p.phone)+'</a>':"未提供")+'</p><p>網站：'+(website?'<a href="'+esc(website)+'" target="_blank" rel="noreferrer">官方網站 ↗</a>':"未提供")+' · <a href="'+googleMapsUrl+'" target="_blank" rel="noreferrer">Google 地圖 ↗</a>'+'</p><p>'+esc(money(p))+' · '+esc(verified(p.verification_status))+'</p><a href="'+url+'" target="_blank" rel="noreferrer">在 OpenStreetMap 開啟 ↗</a></section><section class="box"><h3>營業時間</h3>'+hour+'</section></div><section class="box"><h3>附近捷運站</h3>'+stationRows+'</section><section class="box"><h3>菜單與價格</h3>'+menu+'</section><section class="box"><h3>資料來源與查證</h3>'+sources+'<p>最後確認日期：'+esc(p.last_verified_at?date(p.last_verified_at):'尚無確認紀錄')+'</p></section>';$("#backdrop").classList.remove("hidden");$("#closeModal").focus();}
+
+function toast(message){const el=$("#siteToast");el.textContent=message;el.classList.remove("hidden");clearTimeout(S.toastTimer);S.toastTimer=setTimeout(()=>el.classList.add("hidden"),3200);}
+function refreshAccountUI(){
+ const signed=!!S.user;
+ $("#accountBtn").textContent=signed?(S.profileName||S.user.email||"會員中心"):"登入 / 註冊";
+ $("#accountSignedOut").classList.toggle("hidden",signed);$("#accountSignedIn").classList.toggle("hidden",!signed);
+ if(signed){$("#accountEmail").textContent=S.user.email||"已登入";$("#accountRole").textContent=S.userRole==="admin"?"管理員":"一般會員";$("#accountFavoriteCount").textContent=S.favorites.size;$("#accountVisitedCount").textContent=S.visited.size;$("#favoritesOnly").textContent=S.favoriteOnly?"顯示全部店家":"只看我的收藏";}
+}
+async function loadUserState(){
+ S.favorites.clear();S.visited.clear();S.profileName="";
+ if(!S.user||!S.db){S.userRole="user";refreshAccountUI();return;}
+ const [fav,vis,role,profile]=await Promise.all([
+  S.db.from("favorites").select("place_id").eq("user_id",S.user.id),
+  S.db.from("place_visits").select("place_id").eq("user_id",S.user.id),
+  S.db.from("user_roles").select("role").eq("user_id",S.user.id).maybeSingle(),
+  S.db.from("profiles").select("display_name").eq("user_id",S.user.id).maybeSingle()
+ ]);
+ if(!fav.error)(fav.data||[]).forEach(x=>S.favorites.add(String(x.place_id)));
+ if(!vis.error)(vis.data||[]).forEach(x=>S.visited.add(String(x.place_id)));
+ S.userRole=role.data?.role==="admin"?"admin":"user";
+ S.profileName=profile.data?.display_name||S.user.user_metadata?.display_name||"";
+ refreshAccountUI();
+}
+async function loadCommunityCounts(){
+ if(!S.db)return;
+ const {data,error}=await S.db.rpc("get_place_community_counts");
+ if(error){console.warn("Community counts unavailable",error);return;}
+ S.communityCounts={};(data||[]).forEach(x=>S.communityCounts[String(x.place_id)]=Number(x.eaten_count)||0);
+}
+async function syncAuthUser(user){S.user=user||null;await loadUserState();render();}
+async function togglePlaceAction(kind,id){
+ if(!S.user){$("#authMessage").textContent="登入後就能收藏店家或標記吃過紀錄。";$("#accountBackdrop").classList.remove("hidden");return;}
+ const key=String(id),set=kind==="favorite"?S.favorites:S.visited,table=kind==="favorite"?"favorites":"place_visits";
+ let result;
+ if(set.has(key))result=await S.db.from(table).delete().eq("user_id",S.user.id).eq("place_id",id);
+ else result=await S.db.from(table).insert({user_id:S.user.id,place_id:id});
+ if(result.error){toast("儲存失敗："+result.error.message);return;}
+ if(set.has(key))set.delete(key);else set.add(key);
+ if(kind==="visited")await loadCommunityCounts();
+ render();if(!$("#backdrop").classList.contains("hidden"))modal(id);
+ toast(kind==="favorite"?(set.has(key)?"已加入收藏":"已取消收藏"):(set.has(key)?"已標記為吃過":"已取消吃過標記"));
+}
+async function openAccount(){refreshAccountUI();$("#accountBackdrop").classList.remove("hidden");}
+function setAuthMode(mode){
+ authMode=mode;const signup=mode==="signup";
+ $("#authNameField").classList.toggle("hidden",!signup);$("#authName").required=signup;
+ $("#authPassword").autocomplete=signup?"new-password":"current-password";
+ $("#authSubmit").textContent=signup?"建立帳號":"登入";
+ $("#authModeToggle").textContent=signup?"已有帳號？返回登入":"還沒有帳號？建立會員";
+ $("#authMessage").textContent=signup?"建立帳號後，請依確認信完成電子郵件驗證。密碼至少 8 個字元。":"使用電子郵件與密碼登入。";
+}
+async function submitAuth(e){
+ e.preventDefault();if(!S.db){$("#authMessage").textContent="資料庫尚未連線，請稍後再試。";return;}
+ const email=$("#authEmail").value.trim(),password=$("#authPassword").value,name=$("#authName").value.trim();
+ $("#authSubmit").disabled=true;$("#authSubmit").textContent=authMode==="signup"?"建立中…":"登入中…";
+ try{
+  if(authMode==="signup"){
+   const redirectTo=window.location.origin+window.location.pathname;
+   const {data,error}=await S.db.auth.signUp({email,password,options:{data:{display_name:name},emailRedirectTo:redirectTo}});
+   if(error)throw error;
+   if(data.session){$("#authMessage").textContent="帳號建立成功，已登入。";S.user=data.user;await loadUserState();render();}
+   else $("#authMessage").textContent="註冊申請已送出。請到電子郵件收件匣完成驗證，再返回此頁登入。若確認信導回錯誤頁，請管理員將本網站網址加入 Supabase Auth Redirect URLs。";
+  }else{
+   const {data,error}=await S.db.auth.signInWithPassword({email,password});
+   if(error)throw error;S.user=data.user;await loadUserState();render();$("#accountBackdrop").classList.add("hidden");$("#authForm").reset();toast("登入成功，歡迎回來。");
+  }
+ }catch(err){$("#authMessage").textContent=err?.message||"目前無法完成登入，請檢查資料後重試。";}
+ finally{$("#authSubmit").disabled=false;$("#authSubmit").textContent=authMode==="signup"?"建立帳號":"登入";}
+}
+function modal(id){
+ const p=S.places.find(x=>String(x.id)===String(id));if(!p)return;
+ const days=["週日","週一","週二","週三","週四","週五","週六"],hs=(p.place_hours||[]).slice().sort((a,b)=>a.day_of_week-b.day_of_week);
+ const hour=hs.length?hs.map(r=>'<div class="hour"><span>'+days[Number(r.day_of_week)]+'</span><b>'+(r.is_closed?"公休":r.opens_at&&r.closes_at?esc(r.opens_at.slice(0,5)+"–"+r.closes_at.slice(0,5)):"時間未確認")+'</b></div>').join(""):'<p class="muted">營業時間尚未提供。</p>';
+ const menu=p.menu_items?.length?p.menu_items.map(m=>'<div class="menurow"><span>'+esc(m.name)+' '+esc(m.description||"")+'</span><b>'+(m.price==null?"價格未提供":"NT$ "+Number(m.price).toLocaleString())+'</b></div>').join(""):'<p class="muted">尚無可公開的菜單品項。</p>';
+ const src=(p.place_sources||[]).map(x=>x.sources).filter(Boolean);
+ const sources=src.length?src.map(x=>{const u=safeurl(x.source_url);return'<div class="source">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noreferrer">'+esc(x.source_name||"資料來源")+' ↗</a>':esc(x.source_name||"資料來源"))+' · '+esc(date(x.verified_at))+'</div>';}).join(""):'<p class="muted">來源連結尚未提供。</p>';
+ const stationRows=(p.place_mrt_stations||[]).map(x=>{const st=x.mrt_stations;if(!st)return"";const link=safeurl(st.station_source_url);const line=arr(st.line_ids).join("、");const distance=x.walking_distance_m!=null?("步行約 "+Number(x.walking_distance_m).toLocaleString()+" 公尺"):x.straight_line_distance_m!=null?("直線約 "+Number(x.straight_line_distance_m).toLocaleString()+" 公尺"):"距離待確認";return '<div class="hour"><span>'+esc(st.station_name)+(line?" · "+esc(line)+"線":"")+(link?' · <a href="'+esc(link)+'" target="_blank" rel="noreferrer">官方資訊</a>':"")+"</span><b>"+esc(distance)+"</b></div>";}).join("")||'<p class="muted">尚未完成最近捷運站與步行距離查證。</p>';
+ const has=p.latitude!=null&&p.longitude!=null,url=has?"https://www.openstreetmap.org/?mlat="+encodeURIComponent(p.latitude)+"&mlon="+encodeURIComponent(p.longitude)+"#map=18/"+encodeURIComponent(p.latitude)+"/"+encodeURIComponent(p.longitude):"https://www.openstreetmap.org/search?query="+encodeURIComponent(p.address||p.name);
+ const website=safeurl(p.website_url),googleMapsUrl="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent([p.name,p.address].filter(Boolean).join(" "));
+ $("#modalTitle").textContent=p.name;
+ $("#modalBody").innerHTML='<p class="muted">'+esc(p.description||"目前沒有店家簡介。")+'</p>'+placeActions(p)+'<div class="modalgrid"><section class="box"><h3>店家資訊</h3><p>⌖ '+esc(p.address||"地址未提供")+'</p><p>電話：'+(p.phone?'<a href="tel:'+esc(p.phone)+'">'+esc(p.phone)+'</a>':"未提供")+'</p><p>網站：'+(website?'<a href="'+esc(website)+'" target="_blank" rel="noreferrer">官方網站 ↗</a>':"未提供")+' · <a href="'+googleMapsUrl+'" target="_blank" rel="noreferrer">Google 地圖 ↗</a>'+'</p><p>'+esc(money(p))+' · '+esc(verified(p.verification_status))+'</p><a href="'+url+'" target="_blank" rel="noreferrer">在 OpenStreetMap 開啟 ↗</a></section><section class="box"><h3>營業時間</h3>'+hour+'</section></div><section class="box"><h3>附近捷運站</h3>'+stationRows+'</section><section class="box"><h3>菜單與價格</h3>'+menu+'</section><section class="box"><h3>資料來源與查證</h3>'+sources+'<p>最後確認日期：'+esc(p.last_verified_at?date(p.last_verified_at):"尚無確認紀錄")+'</p></section>';
+ $("#backdrop").classList.remove("hidden");$("#closeModal").focus();
+}
 function initMap(){if(!window.L||S.map)return;S.map=L.map("map",{scrollWheelZoom:false}).setView(CFG.center,CFG.zoom);L.tileLayer(CFG.tile,{minZoom:3,maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors'}).addTo(S.map);L.control.zoom({position:"topright"}).addTo(S.map);L.control.scale({position:"bottomleft",metric:true,imperial:false,maxWidth:120}).addTo(S.map);S.layer=L.layerGroup().addTo(S.map);S.map.on("zoomend",()=>markers(false));}
 function markers(fit=true){
  if(!S.layer)return;
@@ -286,8 +446,48 @@ function markers(fit=true){
  if(fit&&pts.length>1)S.map.fitBounds(pts,{padding:[42,42],maxZoom:15});else if(fit&&pts.length===1)S.map.setView(pts[0],15);
 }
 function view(map){const yes=!!map;$("#cards").classList.toggle("hidden",yes);$("#empty").classList.toggle("hidden",yes||S.filtered.length>0);$("#mapArea").classList.toggle("hidden",!yes);$("#mapBtn").classList.toggle("active",yes);$("#listBtn").classList.toggle("active",!yes);$("#mapBtn").setAttribute("aria-pressed",String(yes));$("#listBtn").setAttribute("aria-pressed",String(!yes));if(yes){initMap();setTimeout(()=>S.map&&S.map.invalidateSize(),80);markers();}}
-async function load(){if(!CFG.key){$("#notice").textContent="Supabase 前端 publishable key 尚未設定。網站介面與地圖已就緒；請在 index.html 的 CFG.key 填入 sb_publishable_...，並先確認資料表 RLS 已啟用。絕不可填入 service_role 或 sb_secret。";$("#notice").classList.remove("hidden");setStatus("","等待 Supabase 設定");return;}if(!window.supabase?.createClient)throw new Error("Supabase SDK 載入失敗");const db=supabase.createClient(CFG.url,CFG.key),[r,sr]=await Promise.all([db.from("places").select("*, place_hours(*), menu_items(*), place_sources(sources(*)), place_mrt_stations(station_id, straight_line_distance_m, walking_distance_m, walking_minutes, verification_status, mrt_stations(station_name, station_name_en, line_ids, station_source_url))").eq("is_published",true).order("name"),db.from("mrt_stations").select("id,station_name,station_name_en,line_ids,target_place_count").eq("is_active",true).order("station_name")]);if(r.error)throw r.error;if(sr.error)throw sr.error;S.stations=sr.data||[];S.places=(r.data||[]).map(p=>({...p,place_hours:p.place_hours||[],menu_items:p.menu_items||[],place_sources:p.place_sources||[],place_mrt_stations:p.place_mrt_stations||[]}));cities();stationOptions();$("#notice").classList.add("hidden");setStatus("ok","資料庫連線正常");render();}
-function bind(){const ids={type:"fType",meal:"fMeal",cuisine:"fCuisine",diet:"fDiet",dining:"fDining",price:"fPrice",city:"fCity",station:"fStation"};$("#searchForm").addEventListener("submit",e=>{e.preventDefault();S.filters.q=$("#searchInput").value.trim().toLowerCase();render();});$("#searchInput").addEventListener("input",()=>{S.filters.q=$("#searchInput").value.trim().toLowerCase();render();});Object.entries(ids).forEach(x=>$("#"+x[1]).addEventListener("change",e=>{S.filters[x[0]]=e.target.value;render();}));$("#clear").addEventListener("click",()=>{Object.keys(S.filters).forEach(k=>S.filters[k]="");$("#searchInput").value="";Object.values(ids).forEach(id=>$("#"+id).value="");document.querySelectorAll(".chip").forEach(b=>b.classList.remove("active"));render();});$("#quick").addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=b.dataset.k,v=b.dataset.v;S.filters[k]=S.filters[k]===v?"":v;const field={type:"fType",meal:"fMeal",cuisine:"fCuisine",diet:"fDiet"}[k];if(field)$("#"+field).value=S.filters[k];render();});$("#active").addEventListener("click",e=>{const b=e.target.closest("[data-clear]");if(!b)return;S.filters[b.dataset.clear]="";const id=ids[b.dataset.clear];if(id)$("#"+id).value="";render();});$("#cards").addEventListener("click",e=>{const c=e.target.closest("[data-place]");if(c)modal(c.dataset.place);});$("#closeModal").addEventListener("click",()=>$("#backdrop").classList.add("hidden"));$("#backdrop").addEventListener("click",e=>{if(e.target.id==="backdrop")$("#backdrop").classList.add("hidden");});document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#backdrop").classList.add("hidden");});$("#categoryNav").addEventListener("click",e=>{const b=e.target.closest("[data-category]");if(!b)return;S.filters.type=b.dataset.category||"";$("#fType").value=S.filters.type;render();});$("#emptyMapList").addEventListener("click",()=>{view(false);document.querySelector("#cards")?.scrollIntoView({behavior:"smooth",block:"start"});});$("#listBtn").addEventListener("click",()=>view(false));$("#mapBtn").addEventListener("click",()=>view(true));$("#navMap").addEventListener("click",()=>view(true));}
+async function load(){
+ if(!CFG.key){$("#notice").textContent="Supabase 前端 publishable key 尚未設定。請確認 index.html 的 CFG.key；絕不可填入 service_role 或 sb_secret。";$("#notice").classList.remove("hidden");setStatus("","等待 Supabase 設定");return;}
+ if(!window.supabase?.createClient)throw new Error("Supabase SDK 載入失敗");
+ const db=supabase.createClient(CFG.url,CFG.key);S.db=db;
+ const [r,sr,stats,sessionRes]=await Promise.all([
+  db.from("places").select("*, place_hours(*), menu_items(*), place_sources(sources(*)), place_mrt_stations(station_id, straight_line_distance_m, walking_distance_m, walking_minutes, verification_status, mrt_stations(station_name, station_name_en, line_ids, station_source_url))").eq("is_published",true).order("name"),
+  db.from("mrt_stations").select("id,station_name,station_name_en,line_ids,target_place_count").eq("is_active",true).order("station_name"),
+  db.rpc("get_place_community_counts"),
+  db.auth.getSession()
+ ]);
+ if(r.error)throw r.error;if(sr.error)throw sr.error;
+ S.stations=sr.data||[];S.places=(r.data||[]).map(p=>({...p,place_hours:p.place_hours||[],menu_items:p.menu_items||[],place_sources:p.place_sources||[],place_mrt_stations:p.place_mrt_stations||[]}));
+ S.communityCounts={};if(!stats.error)(stats.data||[]).forEach(x=>S.communityCounts[String(x.place_id)]=Number(x.eaten_count)||0);
+ S.user=sessionRes.data?.session?.user||null;await loadUserState();
+ cities();stationOptions();$("#notice").classList.add("hidden");setStatus("ok","資料庫與會員功能連線正常");render();
+ db.auth.onAuthStateChange((event,session)=>{if(["SIGNED_IN","SIGNED_OUT","TOKEN_REFRESHED","USER_UPDATED"].includes(event))setTimeout(async()=>{await syncAuthUser(session?.user||null);},0);});
+}
+function bind(){
+ const ids={type:"fType",meal:"fMeal",cuisine:"fCuisine",diet:"fDiet",dining:"fDining",price:"fPrice",city:"fCity",station:"fStation"};
+ $("#searchForm").addEventListener("submit",e=>{e.preventDefault();S.filters.q=$("#searchInput").value.trim().toLowerCase();render();});
+ $("#searchInput").addEventListener("input",()=>{S.filters.q=$("#searchInput").value.trim().toLowerCase();render();});
+ Object.entries(ids).forEach(x=>$("#"+x[1]).addEventListener("change",e=>{S.filters[x[0]]=e.target.value;render();}));
+ $("#clear").addEventListener("click",()=>{Object.keys(S.filters).forEach(k=>S.filters[k]="");S.favoriteOnly=false;$("#searchInput").value="";Object.values(ids).forEach(id=>$("#"+id).value="");document.querySelectorAll(".chip").forEach(b=>b.classList.remove("active"));render();});
+ $("#quick").addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=b.dataset.k,v=b.dataset.v;S.filters[k]=S.filters[k]===v?"":v;const field={type:"fType",meal:"fMeal",cuisine:"fCuisine",diet:"fDiet"}[k];if(field)$("#"+field).value=S.filters[k];render();});
+ $("#active").addEventListener("click",e=>{const b=e.target.closest("[data-clear]");if(!b)return;S.filters[b.dataset.clear]="";const id=ids[b.dataset.clear];if(id)$("#"+id).value="";render();});
+ $("#active").addEventListener("click",e=>{if(e.target.closest("[data-clear-favorites]")){S.favoriteOnly=false;render();}});
+ $("#cards").addEventListener("click",e=>{const action=e.target.closest("[data-action]");if(action){e.preventDefault();e.stopPropagation();togglePlaceAction(action.dataset.action,action.dataset.id);return;}const c=e.target.closest("[data-place]");if(c)modal(c.dataset.place);});
+ $("#backdrop").addEventListener("click",e=>{const action=e.target.closest("[data-action]");if(action){e.preventDefault();e.stopPropagation();togglePlaceAction(action.dataset.action,action.dataset.id);return;}if(e.target.id==="backdrop")$("#backdrop").classList.add("hidden");});
+ $("#closeModal").addEventListener("click",()=>$("#backdrop").classList.add("hidden"));
+ document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("#backdrop").classList.add("hidden");$("#accountBackdrop").classList.add("hidden");}});
+ $("#categoryNav").addEventListener("click",e=>{const b=e.target.closest("[data-category]");if(!b)return;S.filters.type=b.dataset.category||"";$("#fType").value=S.filters.type;render();});
+ $("#emptyMapList").addEventListener("click",()=>{view(false);document.querySelector("#cards")?.scrollIntoView({behavior:"smooth",block:"start"});});
+ $("#listBtn").addEventListener("click",()=>view(false));$("#mapBtn").addEventListener("click",()=>view(true));$("#navMap").addEventListener("click",()=>view(true));
+ $("#accountBtn").addEventListener("click",openAccount);
+ $("#closeAccountModal").addEventListener("click",()=>$("#accountBackdrop").classList.add("hidden"));
+ $("#accountBackdrop").addEventListener("click",e=>{if(e.target.id==="accountBackdrop")$("#accountBackdrop").classList.add("hidden");});
+ $("#authModeToggle").addEventListener("click",()=>setAuthMode(authMode==="signin"?"signup":"signin"));
+ $("#authForm").addEventListener("submit",submitAuth);
+ $("#signOutBtn").addEventListener("click",async()=>{const {error}=await S.db.auth.signOut();if(error){$("#accountMessage").textContent=error.message;return;}S.user=null;S.favoriteOnly=false;await loadUserState();render();$("#accountBackdrop").classList.add("hidden");toast("已登出。");});
+ $("#favoritesOnly").addEventListener("click",()=>{S.favoriteOnly=!S.favoriteOnly;render();$("#accountBackdrop").classList.add("hidden");document.querySelector("#cards")?.scrollIntoView({behavior:"smooth",block:"start"});});
+ setAuthMode("signin");refreshAccountUI();
+}
 document.addEventListener("DOMContentLoaded",async()=>{bind();setStatus("","準備載入資料");try{await load();}catch(e){console.error(e);setStatus("err","資料載入失敗");$("#notice").textContent="目前無法讀取店家資料，請檢查 Supabase 網址、publishable key、資料表與 RLS 設定。";$("#notice").classList.remove("hidden");render();}});
 })();
 </script>
