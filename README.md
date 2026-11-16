@@ -7,10 +7,14 @@
 - 根目錄 index.html：單頁式前端，包含店家搜尋、分類篩選、店家詳情及清單／地圖切換。
 - 地圖：Leaflet + OpenStreetMap，只有已發布且具有有效座標的店家會顯示 marker。
 - 資料庫：`supabase/migrations/20261116151354_create_food_guide_core.sql` 定義六張核心資料表、關聯、索引與 RLS；`20261116151723_harden_public_read_access.sql` 明確限制公開角色唯讀並封鎖內部蒐集紀錄。
-- 文件：docs/data-dictionary.md 與 docs/map.md。
+- 文件：`docs/data-dictionary.md`、`docs/map.md` 與 `docs/design-system.md`（星空視覺設計系統）。
 - 正式 AI 開發規範：AGENTS.md；agent.md 是相容入口。
 
 目前不放入虛構店家或測試店家。Food_map Supabase 已建立六張核心資料表，完成 RLS 與公開唯讀權限設定；前端已設定 publishable key，並通過資料庫層級的匿名 SELECT／關聯查詢測試。資料庫目前 0 筆店家，因此網站會顯示正常空狀態，而非虛構資料。
+
+## 品牌視覺
+
+網站採高貴星空宇宙主題：午夜藍黑背景、低對比星點與星雲、香檳金品牌重點；各店家分類使用低飽和專屬輔色。地圖採簡約深色灰階樣式與分類星點，保留 OpenStreetMap 署名。設計規則見 [`docs/design-system.md`](docs/design-system.md)。
 
 ## 本機預覽
 
