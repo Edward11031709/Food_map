@@ -23,3 +23,12 @@
 - OSM 資料依 ODbL 授權，使用或再散布資料前確認署名及相同方式分享義務。
 - 若流量或用途不符合公共 tile 服務政策，改用適合的 OSM 圖磚供應商或自架服務；底圖 URL 應可設定切換。
 - 每次重大地圖功能變更前重新檢查 OSM 官方政策。
+
+
+## 星空深色地圖視覺
+
+- 保留 Leaflet + OpenStreetMap standard raster tiles；目前不依賴第三方地圖 API key。
+- 透過 Leaflet `.leaflet-tile-pane` 套用灰階反相及亮度／對比濾鏡，呈現深石墨與海軍藍的低彩度底圖；濾鏡只套用底圖，不得套用到 marker、控制項或 attribution。
+- 店家 Marker 使用自訂星點圓形圖示，預設香檳金，並依 `business_type` 使用低飽和分類色。marker 點擊仍需可開啟店家詳情。
+- 縮放按鈕、popup 與 attribution 使用深色面板；OpenStreetMap 署名必須保持可辨識並連結至版權頁。
+- 網站主題色票、marker 色票及元件規則統一維護於 `docs/design-system.md`。
