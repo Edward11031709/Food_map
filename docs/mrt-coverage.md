@@ -99,3 +99,49 @@
 - [愛食記：早點，見面（資料頁出現已歇業版本）](https://www.ifoodie.tw/restaurant/65f6e9c57be9c325e9c257d0-%E6%97%A9%E9%BB%9E-%E8%A6%8B%E9%9D%A2-%E6%97%A9%E9%A4%90%E5%BA%97-%E5%B7%B2%E6%AD%87%E6%A5%AD-)
 
 last_verified_at 僅對本輪實際重新核對的既有店家更新；新增店家日期表示本輪來源查核日期，不代表完整營業狀態已確認。網站卡片與詳情仍直接使用 last_verified_at；null 仍顯示「尚無確認紀錄」。本輪未新增 migration，未修改 schema 或 RLS。
+
+
+## 第四批每週維護（2026-11-23）
+
+| 車站 | 候選關聯數 | 目標 | 本輪新增 | 重新查核 | 店家主檔狀態 | 關聯狀態 |
+|---|---:|---:|---:|---:|---|---|
+| 台北101／世貿站（R03） | 83 | 100 | 3 | 4 | 68 部分查證、15 待確認 | 56 部分查證、27 待確認、0 完全查證 |
+
+本輪新增 3 家，均先比對既有名稱、別名及地址，未發現重複：
+- **陳記米糕**：臺北市信義區吳興街150號，02-2737-3426。以 Uber Eats、WANT EAT FOOD（2026-03-15）及 WalkerLand（2026-02-25）交叉支持店名、地址、電話及品項，列為 partially_verified。
+- **查記麵館**：臺北市信義區吳興街37號1樓，02-2758-8538。以 FindGlocal 店家資訊、WalkerLand（2026-04-09）及 PEKO（2025-12-19）交叉支持店名、地址、電話及麵食資訊，列為 partially_verified。
+- **世貿好吃炸蛋餅**：臺北市信義區吳興街106巷11號，0936-723-238。以愛食記（含 2026-11-01 食記）及 WalkerLand（2026-04-09）支持店名、地址、電話及早餐類型，列為 partially_verified。
+
+以上三家均未寫入價格、營業時間、精確座標或未經證實的飲食需求。來源提及的菜單與營業時間可能變動，未將舊文章數字當成目前值。
+
+重新查核 4 家既有店家：
+- **七飯 SEVEN RICE 世貿店**：重新核對分店地址、電話及近期店家公告，補入頁面所連結的 LINE 聯絡入口；狀態由 needs_review 調整為 partially_verified。
+- **徐記古早味水煎包－吳興店**：重新核對 Uber Eats 現行店家頁、地址及近期評價；狀態調整為 partially_verified。電話仍為 null。
+- **加油添醋烏醋乾麵**：以 2026-06-25 店家介紹及 Uber Eats 頁核對名稱、地址、電話與品項；狀態調整為 partially_verified。但來源明確描述從 R03 步行約 15 分鐘，因此其 R03 關聯仍標 needs_review，不視為 800 公尺內已確認店家。
+- **黃金麵線（吳興街）**：以 TVBS 食尚玩家店家頁及 Uber Eats 頁核對名稱、地址、電話。不同來源的營業時段略有差異，故不更新營業時間；狀態調整為 partially_verified。
+
+**距離與 800 公尺限制：** 本輪沒有新增任何座標，也沒有寫入直線距離或步行距離。WANT EAT FOOD 對陳記米糕刊載「500 公尺／步行 7 分鐘」，PEKO 對查記麵館刊載步行約 5 分鐘；這些是第三方文字敘述，並非可追溯的實際路徑或官方測量，因此只保留來源，不將數字寫入距離欄位，兩家 R03 關聯均維持 needs_review。世貿好吃炸蛋餅也尚無可追溯距離，關聯維持 needs_review。另有來源指出邱記涼麵距 R03 約 850 公尺／步行 12 分鐘，超過初始 800 公尺範圍，本輪不新增其 R03 關聯；281 雞蛋糕亦因無法確認在 800 公尺範圍內而未新增。
+
+截至本輪結束，R03 有 83 筆候選店家關聯，尚差 17 筆達到名目 100 家目標；但**0 筆關聯具有可追溯的直線或步行距離，0 筆可據此宣稱已完成 800 公尺範圍查證**。R03 車站主檔的 latitude／longitude 仍為 null；資料庫目前只有 R03 一筆車站主檔，依官方文件規劃的其餘 131 站尚未匯入。不可把 83 筆候選關聯當成 83 家都在 800 公尺內。
+
+本輪統計：新增 3、重複略過 0、重新查核 4、既有店家重要聯絡資訊變動 1（七飯補入 LINE 入口）、查證狀態更新 4、待人工確認 27 筆站點關聯及 15 家店家主檔。另有 9 家已發布店家的 last_verified_at 仍為 null，網站應顯示「尚無確認紀錄」。
+
+最後確認日期呈現已檢查：index.html 卡片及詳情直接使用 places.last_verified_at，null 顯示「尚無確認紀錄」；查證狀態以 verification_status 顯示；日期以 Asia/Taipei 格式化。沒有以 created_at／updated_at 代替查證日期。本輪沒有修改 index.html，因此沒有宣稱完成新的前端互動測試。
+
+主要來源：
+- [陳記米糕－Uber Eats](https://www.ubereats.com/tw/store/%E9%99%B3%E8%A8%98%E7%B1%B3%E7%B3%95/GKXlwR6eTYexXxIF9zB2xw)
+- [陳記米糕－WANT EAT FOOD（2026-03-15）](https://wanteatfood.com/18838)
+- [陳記米糕－WalkerLand（2026-02-25）](https://www.walkerland.com.tw/article/view/421965)
+- [查記麵館－FindGlocal 店家資訊](https://www.findglocal.com/TW/Taipei/348780175564083/%E6%9F%A5%E8%A8%98%E9%BA%B5%E9%A4%A8%E7%B2%89%E7%B5%B2%E5%9C%98)
+- [查記麵館－PEKO（2025-12-19）](https://pekoblog.tw/chachi/)
+- [世貿好吃炸蛋餅－愛食記](https://www.ifoodie.tw/restaurant/6ae73bfe88a06b1c26416db6-%E4%B8%96%E8%B2%BF%E5%A5%BD%E5%90%83%E7%82%B8%E8%9B%8B%E9%A4%85)
+- [吳興街銅板美食－WalkerLand（2026-04-09）](https://www.walkerland.com.tw/subject/view/422682)
+- [徐記古早味水煎包－Uber Eats](https://www.ubereats.com/tw/store/%E5%BE%90%E8%A8%98-%E5%8F%A4%E6%97%A9%E5%91%B3%E6%B0%B4%E7%85%8E%E5%8C%85-%E5%90%B3%E8%88%88%E5%BA%97/Sz_DA08iVpWtTUrtgPsKow)
+- [七飯 SEVEN RICE－FoodYas 店家資訊與公告](https://www.foodyas.com/TW/Taipei/103276025726483/%E4%B8%83%E9%A3%AF--SEVEN-RICE---%E5%A5%BD%E5%90%83%E5%81%A5%E5%BA%B7%E9%A4%90%E7%9B%92)
+- [加油添醋－2026-06-25 店家介紹](https://litwenblog.com/jiayoutiancu/)
+- [加油添醋－Uber Eats](https://www.ubereats.com/tw/store/%E5%8A%A0%E6%B2%B9%E6%B7%BB%E9%86%8B%E9%BA%B5%E5%BA%97/lMJvHpXgSBGtSES30YEqFg)
+- [黃金麵線－TVBS 食尚玩家](https://supertaste.tvbs.com.tw/infocard/26937)
+- [黃金麵線－Uber Eats](https://www.ubereats.com/tw/store/%E4%BF%A1%E7%BE%A9%E9%BB%83%E9%87%91%E9%BA%B5%E7%B7%9A-%E5%90%B3%E8%88%88%E8%A1%97/RWWGSAEaQuSe3LyapW2AaA)
+- [邱記涼麵－WANT EAT FOOD（2026-06-18；刊載 850 公尺）](https://wanteatfood.com/28271)
+
+本輪未新增 migration、未修改 schema 或 RLS。資料表 RLS 仍全部啟用；公開角色無店家／來源／捷運資料寫入權限，authenticated 的 INSERT／DELETE 僅限本人 favorites 與 place_visits。Supabase 遠端 migration history 與 Repo 內 6 筆 migration 版本一致。
